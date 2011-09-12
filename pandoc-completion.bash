@@ -27,20 +27,20 @@ function _completer()
 	    markdown markdown+lhs plain rst rst+lhs mediawiki \ 
 		textile rtf org odt epub"
 
-    inputafter="-f -r --from= --read="
+    inputafter="-f -r --from --read"
 
-	outputafter="-t -w -D --to= --write= --print-default-template="
+	outputafter="-t -w -D --to --write --print-default-template"
     
-	urlafter="--css= --latexmathml= --asciimathml= \
-		--mathml= --mimetex= --webtex= --jsmath= --mathjax="
+	urlafter="--css --latexmathml --asciimathml \
+		--mathml --mimetex --webtex --jsmath --mathjax"
 
-	fileafter="--output= --template= \
-		--include-in-header= --include-before-body= \
-		--include-after-body= --reference-odt= --epub-stylesheet= \
-		--epub-cover-image= --epub-metadata= --bibliography= --csl= \
+	fileafter="--output --template \
+		--include-in-header --include-before-body \
+		--include-after-body --reference-odt --epub-stylesheet \
+		--epub-cover-image --epub-metadata --bibliography --csl \
 		-o -H -B -A"
 
-	directoryafter="--data-dir="
+	directoryafter="--data-dir"
 
 	opts="-f -r -t -w -o -s --standalone -p --preserve-tabs \
 	--strict --normalize --reference-links -R --parse-raw -S --smart \
@@ -50,9 +50,9 @@ function _completer()
 	--natbib --biblatex --dump-args --ignore-args \
 	-v --version -h --help -m --latexmathml --asciimathml \
 	--mathml --mimetex --webtex --jsmath --mathjax \
-	--tab-stop= --columns= --id-prefix= \
-    --indented-code-classes=  --base-header-level= \
-    --variable= --title-prefix= --email-obfuscation=" 
+	--tab-stop --columns --id-prefix \
+    --indented-code-classes  --base-header-level \
+    --variable --title-prefix --email-obfuscation" 
 	
 	opts="$opts $inputafter $outputafter $urlafter $fileafter \ 
 	     $directoryafter"
