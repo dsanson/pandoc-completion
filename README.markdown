@@ -1,8 +1,28 @@
-This repository contains two files, either of which can be used to for
-bash command-line completion for pandoc. For now, I recommend using
-`pandoc-completion.bash`. Ultimately, I'd like to replace
+This repository contains two files, either of which can be used to
+provide bash command-line completion for pandoc. For now, I recommend
+using `pandoc-completion.bash`. Ultimately, I'd like to replace
 `pandoc-completion.bash` with `pandoc.usage`, but there are bugs that
 need to ironed out before it can be recommended.
+
+## installation
+
+If you want the development versions of both files,
+
+    git clone git@github.com:dsanson/pandoc-completion.git
+
+If just you want a reasonably stable version of `pandoc-completion.bash`,
+
+    cd /path/you/want/to/put/the/script
+	curl -O https://raw.github.com/dsanson/pandoc-completion/v0.1/pandoc-completion.bash
+
+To use `pandoc-completion.bash`, you will then need to put something like
+
+    [[ -s "/path/to/pandoc-completions.bash" ]] && source "/path/to/pandoc-completions.bash"
+
+into your `.bashrc`.
+
+To use `pandoc.usage`, install [Compleat][], and put `pandoc.usage` in
+`~/.compleat`.
 
 ## pandoc-completion.bash
 
@@ -44,16 +64,6 @@ as well as in `~/.pandoc`. And
     pandoc --reference-odt 
 
 will do the same, for files ending in `.odt`.
-
-To use, put it somewhere, e.g.,
-
-    $HOME/etc/bash-completions.d/pandoc-completion.bash
-
-and put something like
-
-    [[ -s "$HOME/etc/bash-completions.d/pandoc-completion.bash" ]] && source "$HOME/etc/bash-completions.d/pandoc-completion.bash"
-
-into your `.bashrc`.
 
 Note that this script is messy. I don't know a lot about writing bash
 completion scripts, and I find that the documentation of the options
