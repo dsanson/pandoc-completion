@@ -1,0 +1,102 @@
+INPUT = ( native | json | markdown | markdown+lhs | rst | rst+lhs | textile | html | latex | latex+lhs );
+
+OUTPUT = ( native | json | html | html+lhs | s5 | slidy | docbook | opendocument | latex | latex+lhs | context | texinfo | man | markdown | markdown+lhs | plain | rst | rst+lhs | mediawiki | textile | rtf | org | odt | epub );
+
+FILE = ! compgen -f -- "$COMP_CWORD";
+
+TEMPLATE = ( <FILE> | <TEMPLATEFILE> );
+
+TEMPLATEFILE = ! echo $HOME/.pandoc/templates/$COMP_CWORD* | tr ' ' '\n' | sed s#^$HOME/.pandoc/templates/##;
+
+BIB = ( <FILE> );
+
+BIBFILE = ! echo $HOME/.pandoc/$COMP_CWORD* | tr ' ' '\n' | egrep "(.bib$)|(.mods$)|(.ris$)|(.bbx$)|(.enl$)|(.xml$)|(.wos$)|(.copac$)|(.json$)|(.medline$)";
+
+CSL = ( <FILE> | <CSLFILE> );
+
+CSLFILE = ! echo $HOME/.csl/$COMP_CWORD* | tr ' ' '\n' | sed s#^$HOME/.csl/##;
+
+ODT = ( <FILE> );
+
+ODTFILE = ! echo $HOME/.pandoc/$COMP_CWORD* | tr ' ' '\n' | egrep "(.odt$)";
+
+pandoc  [ ( -f <INPUT> ) | ( -r <INPUT> )
+		| ( --from <INPUT> ) | ( --read <INPUT> )
+        | ( -t <OUTPUT> ) | ( -w <OUTPUT> )
+		| ( --to <OUTPUT> ) | ( --write <OUTPUT> )
+		| -s | --standalone
+		| ( -o <FILE> ) | ( --output <FILE> )
+		| -p | --preserve-tabs
+		| ( --tab-stop <NUMBER> )
+		| --strict
+		| --normalize
+		| --reference-links
+		| -R | --parse-raw
+		| -S | --smart
+		| -5 | --html5
+		| ( -m <URL> ) | ( --latexmathml <URL> )
+		| ( --mathml <URL>  )
+		| ( --jsmath <URL>  )
+		| ( --mathjax <URL> )
+		| ( --gladtex       )
+		| ( --mimetex <URL> )
+		| ( --webtex <URL>  )
+		| -i | --incremental
+		| --offline
+		| --chapters
+		| -N | --number-sections
+		| --listings
+		| --section-divs
+		| --no-wrap
+		| ( --columns <NUMBER> )
+		| ( --ascii )
+		| ( --email-obfuscation (none|javascript|references) )
+		| ( --id-prefix <STRING> )
+		| ( --indented-code-classes <CLASSES> )
+		| --toc | --table-of-contents
+		| ( --base-header-level <NUMBER> )
+		| ( --template <TEMPLATE> )
+		| ( -V <STRING> ) | ( --variable <STRING> )
+		| ( -c <URL> ) | ( --css <URL> )
+		| ( -H <FILE> ) | ( --include-in-header <FILE> )
+		| ( -B <FILE> ) | ( --include-before-body <FILE> )
+		| ( -A <FILE> ) | ( --include-after-body <FILE> )
+		| ( --reference-odt <ODT> )
+		| ( --epub-stylesheet <FILE> )
+		| ( --epub-cover-image <FILE> )
+		| ( --epub-metadata <FILE> )
+		| ( -D <OUTPUT> ) | ( --print-default-template <OUTPUT> )
+		| ( -T <STRING> ) | ( --title-prefix <STRING> )
+		| ( --bibliography <BIB> )
+		| ( --csl <CSL> )
+		| --natbib
+		| --biblatex
+		| ( --data-dir <DIRECTORY> )
+		| --dump-args
+		| --ignore-args
+		| -v | --version
+		| -h | --help
+		| <FILE> ]... ;
+
+markdown2pdf [ ( -f <INPUT> ) | ( -r <INPUT> )
+		| ( --from <INPUT> ) | ( --read <INPUT> )
+		| ( -t <OUTPUT> ) | ( -w <OUTPUT> )
+		| ( --to <OUTPUT> ) | ( --write <OUTPUT> )
+		| -p | --preserve-tabs
+		| ( --tab-stop <NUMBER> )
+		| --strict
+		| -R | --parse-raw
+		| -N | --number-sections
+		| --listings
+		| --toc | --table-of-contents
+		| ( --template <TEMPLATE> )
+		| ( -V <STRING> ) | ( --variable <STRING> )
+		| ( -H <FILE> ) | ( --include-in-header <FILE> )
+		| ( -B <FILE> ) | ( --include-before-body <FILE> )
+		| ( -A <FILE> ) | ( --include-after-body <FILE> )
+		| ( --bibliography <BIBFILE> )
+		| ( --csl <CSLFILE> )
+		| ( --data-dir <DIRECTORY> )
+		| <FILE> ] ... ;
+
+
