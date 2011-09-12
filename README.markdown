@@ -1,18 +1,21 @@
 This repository contains two files, either of which can be used to for
 bash command-line completion for pandoc. For now, I recommend using
 `pandoc-completion.bash`. Ultimately, I'd like to replace
-`pandoc-completion.bash` with `pandoc.usage`.
+`pandoc-completion.bash` with `pandoc.usage`, but there are bugs that
+need to ironed out before it can be recommended.
 
 ## pandoc-completion.bash
 
 `pandoc-completion.bash` is a bash completion script for pandoc. It
 supports completion of pandoc's command-line options, as well as
 completion of file paths in the pandoc data directory and $HOME/.csl,
-where appropriate.
+where appropriate. It provides the same completions, where appropriate,
+for markdown2pdf.
 
 Note that the script completes long options that take arguments as
-`--opt arg` rather than `--opt=arg`. But if you happen to type something
-like
+`--opt arg` rather than `--opt=arg` (although the documentation doesn't
+don't make this clear, pandoc supports both styles). But if you happen
+to type something like
 
     pandoc --opt=<tab>
 
@@ -29,10 +32,10 @@ output format---that is up to you.) Similarly,
 
     pandoc --csl chic<tab>
 
-will complete filenames starting with `chic` in the current directory as
-well as in `~/.csl`. And
+will complete filenames starting with `chic` and ending with `.csl` in
+the current directory as well as in `~/.csl`. And
 
-    pandoc --bibliography potat<tab>
+    markdown2pdf --bibliography potat<tab>
 
 will complete filenames starting with `potat` with supported
 bibliography extensions (`.bib`, `.mods`, etc.) in the current directory

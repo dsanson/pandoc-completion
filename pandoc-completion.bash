@@ -27,35 +27,70 @@ function _completer()
 	    markdown markdown+lhs plain rst rst+lhs mediawiki \ 
 		textile rtf org odt epub"
 
-    inputafter="-f -r --from --read"
+	pandoc_opts=" -t -w -D --to --write \
+		        -s --standalone \
+				--normalize \
+				--reference-links \
+				-S --smart \
+				-5 --html5 \
+				-m --latexmathml \
+				--mathml \
+				--mimetex \
+				--webtex \
+				--jsmath \}
+				--mathjax \
+				--gladtex \
+				-i --incremental \
+				--offline \
+				--chapters \
+				--section-divs \
+				--no-wrap \
+				--columns \
+				--ascii \
+				--email-obfuscation \
+				--id-prefix \
+				--indented-code-classes \
+				--base-header-level \
+				-c --css \
+				--reference-odt \
+				--epub-stylesheet \
+			    --epub-cover-image \
+				--epub-metadata \
+				-D --print-default-template \
+				-T --title-prefix \
+				--natbib \
+				--biblatex \
+				--dump-args \
+				--ignore-args \
+				-v --version"
 
-	outputafter="-t -w -D --to --write --print-default-template"
-    
-	urlafter="--css --latexmathml --asciimathml \
-		--mathml --mimetex --webtex --jsmath --mathjax"
-
-	fileafter="--output --template \
-		--include-in-header --include-before-body \
-		--include-after-body --reference-odt --epub-stylesheet \
-		--epub-cover-image --epub-metadata --bibliography --csl \
-		-o -H -B -A"
-
-	directoryafter="--data-dir"
-
-	opts="-f -r -t -w -o -s --standalone -p --preserve-tabs \
-	--strict --normalize --reference-links -R --parse-raw -S --smart \
-	-5 --html5 --gladtex -i --incremental --offline --xetex --chapters \
-	-N --number-sections --listings --section-divs --no-wrap \
-	--ascii --toc --table-of-contents -V -c -T \
-	--natbib --biblatex --dump-args --ignore-args \
-	-v --version -h --help -m --latexmathml --asciimathml \
-	--mathml --mimetex --webtex --jsmath --mathjax \
-	--tab-stop --columns --id-prefix \
-    --indented-code-classes  --base-header-level \
-    --variable --title-prefix --email-obfuscation" 
-	
-	opts="$opts $inputafter $outputafter $urlafter $fileafter \ 
-	     $directoryafter"
+	shared_opts="-f -r --from --read \
+		        -o --output \
+		        -p --preserve-tabs \
+				--tab-stop \
+			    --strict \
+				-R --parse-raw \
+				-N --number-sections \
+				--listings \
+				--toc --table-of-contents \
+				--template \
+				-V --variable \
+				-H --include-in-header \
+				-B --include-before-body \
+				-A --include-after-body \
+				--bibliography \
+				--csl \
+				--data-dir \
+				-h --help"
+    echo "$command"	
+	case  "$command" in
+	    pandoc)
+		    opts="${pandoc_opts} ${shared_opts}"
+			;;
+		markdown2pdf)
+			opts="${shared_opts}"
+			;;
+	esac 
     
 	case "$prev" in
 		-f|-r|--from|--read)
@@ -85,8 +120,8 @@ function _completer()
 			return 0
 			;;
 		--csl)
-			COMPREPLY=( $(ls $HOME/.csl/ 2> /dev/null | grep ${cur} 2> /dev/null ))
-			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur}))
+			COMPREPLY=( $(ls $HOME/.csl/ 2> /dev/null | grep ".csl$" | grep ${cur} 2> /dev/null ))
+			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | grep ".csl$" ))
 			return 0
 			;;
 		--reference-odt)
@@ -112,4 +147,8 @@ function _completer()
     esac
 }
 
+command='pandoc'
 complete -F _completer -o nospace pandoc
+
+command='markdown2pdf'
+complete -F _completer -o nospace markdown2pdf
