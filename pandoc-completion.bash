@@ -82,15 +82,17 @@ function _completer()
 				--csl \
 				--data-dir \
 				-h --help"
-    echo "$command"	
-	case  "$command" in
-	    pandoc)
-		    opts="${pandoc_opts} ${shared_opts}"
-			;;
-		markdown2pdf)
-			opts="${shared_opts}"
-			;;
-	esac 
+#    echo "$command"	
+	#case  "$command" in
+		#pandoc)
+			#opts="${pandoc_opts} ${shared_opts}"
+			#;;
+		#markdown2pdf)
+			#opts="${shared_opts}"
+			#;;
+   # esac 
+
+    opts="$pandoc_opts $shared_opts"
     
 	case "$prev" in
 		-f|-r|--from|--read)
@@ -147,8 +149,8 @@ function _completer()
     esac
 }
 
-command='pandoc'
+#command='pandoc'
 complete -F _completer -o nospace pandoc
 
-command='markdown2pdf'
-complete -F _completer -o nospace markdown2pdf
+#command='markdown2pdf'
+#complete -F _completer -o nospace markdown2pdf
