@@ -10,7 +10,8 @@
 
 function _completer() 
 {
-    local cur prev opts
+    local command cur prev opts
+	command="$1"
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
@@ -82,17 +83,16 @@ function _completer()
 				--csl \
 				--data-dir \
 				-h --help"
-#    echo "$command"	
-	#case  "$command" in
-		#pandoc)
-			#opts="${pandoc_opts} ${shared_opts}"
-			#;;
-		#markdown2pdf)
-			#opts="${shared_opts}"
-			#;;
-   # esac 
 
-    opts="$pandoc_opts $shared_opts"
+    if [ "$command" == "pandoc" ]
+	then
+		opts="$pandoc_opts $shared_opts"
+	elif [ "$command" == "markdown2pdf" ]
+	then
+		opts="$shared_opts"
+	else
+		return 0
+	fi
     
 	case "$prev" in
 		-f|-r|--from|--read)
@@ -149,8 +149,15 @@ function _completer()
     esac
 }
 
-#command='pandoc'
-complete -F _completer -o nospace pandoc
+function _pandoc_completer() {
+	_completer pandoc
+	return 0
+}
 
-#command='markdown2pdf'
-#complete -F _completer -o nospace markdown2pdf
+function _markdown2pdf_completer() {
+    _completer markdown2pdf
+}
+
+complete -F _pandoc_completer -o nospace pandoc
+
+complete -F _markdown2pdf_completer -o nospace markdown2pdf
