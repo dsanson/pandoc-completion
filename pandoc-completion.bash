@@ -76,14 +76,11 @@ function _completer()
 			;;
 		--bibliography)
 			COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "(.bib$)|(.mods$)|(.ris$)|(.bbx$)|(.enl$)|(.xml$)|(.wos$)|(.copac$)|(.json$)|(.medline$)" 2> /dev/null | sed "s#^#$HOME/.pandoc/#" 2> /dev/null | grep ${cur} 2> /dev/null ) )
-			texpath=$(kpsewhich -var-value TEXMFHOME)
-			COMPREPLY=(  ${COMPREPLY[@]} $( ls ${texpath} 2> /dev/null | egrep "(.bib$)|(.mods$)|(.ris$)|(.bbx$)|(.enl$)|(.xml$)|(.wos$)|(.copac$)|(.json$)|(.medline$)" 2> /dev/null | sed 's#^#'${texpath}'/.pandoc/#' 2> /dev/null | grep ${cur} 2> /dev/null ) )
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur}))
 			return 0
 			;;
 		--template)
-			COMPREPLY=( $(ls $HOME/.pandoc/ 2> /dev/null | grep ".template$" 2> /dev/null | sed s#$HOME/.pandoc/## 2> /dev/null | sed s/.template$// 2> /dev/null | grep ${cur} 2> /dev/null) )
-			COMPREPLY=( $(ls $HOME/.pandoc/templates/ 2> /dev/null | grep ".template$" | sed s#$HOME/.pandoc/templates/## 2> /dev/null | sed s/.template$// 2> /dev/null | grep ${cur} 2> /dev/null ))
+			COMPREPLY=( $(ls $HOME/.pandoc/templates/ 2> /dev/null | sed s#$HOME/.pandoc/templates/## 2> /dev/null | grep ${cur} 2> /dev/null ))
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur}))
 			return 0
 			;;
