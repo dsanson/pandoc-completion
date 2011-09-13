@@ -97,6 +97,7 @@ markdown2pdf [ ( -f <INPUT> ) | ( -r <INPUT> )
 		| ( --bibliography <BIBFILE> )
 		| ( --csl <CSLFILE> )
 		| ( --data-dir <DIRECTORY> )
+		| --xetex | --luatex
 		| <FILE> ] ... ;
 
 

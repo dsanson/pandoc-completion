@@ -64,6 +64,8 @@ function _completer()
 				--dump-args \
 				--ignore-args \
 				-v --version"
+	
+	markdown2pdf_opts="--xetex --luatex"
 
 	shared_opts="-f -r --from --read \
 		        -o --output \
@@ -89,7 +91,7 @@ function _completer()
 		opts="$pandoc_opts $shared_opts"
 	elif [ "$command" == "markdown2pdf" ]
 	then
-		opts="$shared_opts"
+		opts="$markdown2pdf_opts $shared_opts"
 	else
 		return 0
 	fi
