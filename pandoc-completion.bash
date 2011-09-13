@@ -28,6 +28,8 @@ function _completer()
 	    markdown markdown+lhs plain rst rst+lhs mediawiki \ 
 		textile rtf org odt epub"
 
+	bibs="(bib)|(mods)|(ris)|(bbx)|(enl)|(xml)|(wos)|(copac)|(json)|(medline)"
+
 	pandoc_opts=" -t -w -D --to --write \
 		        -s --standalone \
 				--normalize \
@@ -98,48 +100,48 @@ function _completer()
     
 	case "$prev" in
 		-f|-r|--from|--read)
-			COMPREPLY=( $(compgen -W "$input" -- ${cur} ) )
+			COMPREPLY=( $( compgen -W "$input" -- ${cur} ) )
 			return 0
 			;;
 		-t|-w|-D|--to|--write|--print-default-template)
-			COMPREPLY=( $(compgen -W "$output" -- ${cur} ) )
+			COMPREPLY=( $( compgen -W "$output" -- ${cur} ) )
 			return 0
 			;;
 		--data-dir)
-			COMPREPLY=( $(compgen -d -- ${cur}))
+			COMPREPLY=( $( compgen -d -- ${cur} ) )
 			return 0
 			;;
 		--email-obfuscation)
-			COMPREPLY=( $(compgen -W "none javascript references" -- ${cur}))
+			COMPREPLY=( $( compgen -W "none javascript references" -- ${cur} ) )
 			return 0
 			;;
 		--bibliography)
-			COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.(bib$)|(mods$)|(ris$)|(bbx$)|(enl$)|(xml$)|(wos$)|(copac$)|(json$)|(medline$)" | sed "s#^#$HOME/.pandoc/#" ) )
-			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | egrep "\.(bib$)|(mods$)|(ris$)|(bbx$)|(enl$)|(xml$)|(wos$)|(copac$)|(json$)|(medline$)"))
+			COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.${bibs}$" | sed "s#^#$HOME/.pandoc/#" ) )
+			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | egrep "\.${bibs}$" ) )
 			return 0
 			;;
 		--template)
 			if [ ${command} == 'pandoc' ]; then
-				COMPREPLY=( $(ls $HOME/.pandoc/templates/ 2> /dev/null | grep "^${cur}" ))
+				COMPREPLY=( $( ls $HOME/.pandoc/templates/ 2> /dev/null | grep "^${cur}" ) )
 			elif [ ${command} == 'markdown2pdf' ]; then
-				COMPREPLY=( $(ls $HOME/.pandoc/templates/ 2> /dev/null | grep "latex" | grep "^${cur}" ))
+				COMPREPLY=( $( ls $HOME/.pandoc/templates/ 2> /dev/null | grep "latex" | grep "^${cur}" ) )
 			fi
-			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur}))
+			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
 			return 0
 			;;
 		--csl)
-			COMPREPLY=( $(ls $HOME/.csl/ 2> /dev/null | egrep "^${cur}.*\.csl$" ))
-			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | grep ".csl$" ))
+			COMPREPLY=( $( ls $HOME/.csl/ 2> /dev/null | egrep "^${cur}.*\.csl$" ) )
+			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | grep ".csl$" ) ) 
 			return 0
 			;;
 		--reference-odt)
-			COMPREPLY=( $(ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.odt$" | sed s#^#$HOME/.pandoc/# ) )
-			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur}))
+			COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.odt$" | sed s#^#$HOME/.pandoc/# ) )
+			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
 			return 0
 			;;
 
 		-o|--output)
-			COMPREPLY=( $(compgen -f -- ${cur}))
+			COMPREPLY=( $( compgen -f -- ${cur} ) )
 			return 0
 			;;
 	esac
