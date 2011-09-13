@@ -114,22 +114,26 @@ function _completer()
 			return 0
 			;;
 		--bibliography)
-			COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "(.bib$)|(.mods$)|(.ris$)|(.bbx$)|(.enl$)|(.xml$)|(.wos$)|(.copac$)|(.json$)|(.medline$)" 2> /dev/null | sed "s#^#$HOME/.pandoc/#" 2> /dev/null | grep ${cur} 2> /dev/null ) )
-			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur}))
+			COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.(bib$)|(mods$)|(ris$)|(bbx$)|(enl$)|(xml$)|(wos$)|(copac$)|(json$)|(medline$)" | sed "s#^#$HOME/.pandoc/#" ) )
+			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | egrep "\.(bib$)|(mods$)|(ris$)|(bbx$)|(enl$)|(xml$)|(wos$)|(copac$)|(json$)|(medline$)"))
 			return 0
 			;;
 		--template)
-			COMPREPLY=( $(ls $HOME/.pandoc/templates/ 2> /dev/null | sed s#$HOME/.pandoc/templates/## 2> /dev/null | grep ${cur} 2> /dev/null ))
+			if [ ${command} == 'pandoc' ]; then
+				COMPREPLY=( $(ls $HOME/.pandoc/templates/ 2> /dev/null | grep "^${cur}" ))
+			elif [ ${command} == 'markdown2pdf' ]; then
+				COMPREPLY=( $(ls $HOME/.pandoc/templates/ 2> /dev/null | grep "latex" | grep "^${cur}" ))
+			fi
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur}))
 			return 0
 			;;
 		--csl)
-			COMPREPLY=( $(ls $HOME/.csl/ 2> /dev/null | grep ".csl$" | grep ${cur} 2> /dev/null ))
+			COMPREPLY=( $(ls $HOME/.csl/ 2> /dev/null | egrep "^${cur}.*\.csl$" ))
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | grep ".csl$" ))
 			return 0
 			;;
 		--reference-odt)
-			COMPREPLY=( $(ls $HOME/.pandoc/ 2> /dev/null | grep ".odt$" 2> /dev/null | sed s#$HOME/.pandoc/## 2> /dev/null | grep ${cur} 2> /dev/null) )
+			COMPREPLY=( $(ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.odt$" | sed s#^#$HOME/.pandoc/# ) )
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur}))
 			return 0
 			;;
