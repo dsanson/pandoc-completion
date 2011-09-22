@@ -13,7 +13,7 @@ If you want the development versions of both files,
 If just you want a reasonably stable version of `pandoc-completion.bash`,
 
     cd /path/you/want/to/put/the/script
-	curl -O https://raw.github.com/dsanson/pandoc-completion/v0.1/pandoc-completion.bash
+	curl -O https://raw.github.com/dsanson/pandoc-completion/1.1/pandoc-completion.bash
 
 To use `pandoc-completion.bash`, you will then need to put something like
 
