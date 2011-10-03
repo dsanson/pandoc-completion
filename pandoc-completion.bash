@@ -23,7 +23,7 @@ function _completer()
 	input="native json markdown markdown+lhs rst rst+lhs textile \
 		html latex latex+lhs"
 
-    output="native json html html+lhs s5 slidy docbook \
+    output="native json html html+lhs s5 slidy dzslides docbook \
 		opendocument latex latex+lhs context texinfo man \ 
 	    markdown markdown+lhs plain rst rst+lhs mediawiki \ 
 		textile rtf org odt epub"

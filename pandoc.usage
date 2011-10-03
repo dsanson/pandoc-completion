@@ -1,6 +1,6 @@
 INPUT = ( native | json | markdown | markdown+lhs | rst | rst+lhs | textile | html | latex | latex+lhs );
 
-OUTPUT = ( native | json | html | html+lhs | s5 | slidy | docbook | opendocument | latex | latex+lhs | context | texinfo | man | markdown | markdown+lhs | plain | rst | rst+lhs | mediawiki | textile | rtf | org | odt | epub );
+OUTPUT = ( native | json | html | html+lhs | s5 | slidy | dzslides | docbook | opendocument | latex | latex+lhs | context | texinfo | man | markdown | markdown+lhs | plain | rst | rst+lhs | mediawiki | textile | rtf | org | odt | epub );
 
 FILE = ! compgen -f -- "$COMP_CWORD";
 
