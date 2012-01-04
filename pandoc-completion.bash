@@ -23,18 +23,22 @@ function _completer()
 	input="native json markdown markdown+lhs rst rst+lhs textile \
 		html latex latex+lhs"
 
-    output="native json html html+lhs s5 slidy dzslides docbook \
-		opendocument latex latex+lhs context texinfo man \ 
+    output="native json html html5 html+lhs html5+lhs s5 slidy \
+        dzslides docbook \
+		opendocument latex latex+lhs beamer context texinfo man \ 
 	    markdown markdown+lhs plain rst rst+lhs mediawiki \ 
-		textile rtf org odt epub"
+		textile rtf org asciidoc odt epub"
 
 	bibs="(bib)|(mods)|(ris)|(bbx)|(enl)|(xml)|(wos)|(copac)|(json)|(medline)"
 
-	pandoc_opts=" -t -w -D --to --write \
+    highlight_styles="pygments kate monochrome espresso haddock tango"
+
+	pandoc_opts=" -t -w --to --write \
 		        -s --standalone \
 				--normalize \
 				--reference-links \
 				-S --smart \
+                --old-dashes \
 				-5 --html5 \
 				-m --latexmathml \
 				--mathml \
@@ -45,6 +49,7 @@ function _completer()
 				--gladtex \
 				-i --incremental \
 				--offline \
+                --self-contained \
 				--chapters \
 				--section-divs \
 				--no-wrap \
@@ -67,7 +72,7 @@ function _completer()
 				--ignore-args \
 				-v --version"
 	
-	markdown2pdf_opts="--xetex --luatex"
+	markdown2pdf_opts="--xetex --luatex --beamer"
 
 	shared_opts="-f -r --from --read \
 		        -o --output \
@@ -75,6 +80,8 @@ function _completer()
 				--tab-stop \
 			    --strict \
 				-R --parse-raw \
+                --no-highlight \
+                --highlight-style \
 				-N --number-sections \
 				--listings \
 				--toc --table-of-contents \
@@ -85,6 +92,7 @@ function _completer()
 				-A --include-after-body \
 				--bibliography \
 				--csl \
+                --citation-abbreviations \
 				--data-dir \
 				-h --help"
 
@@ -107,6 +115,10 @@ function _completer()
 			COMPREPLY=( $( compgen -W "$output" -- ${cur} ) )
 			return 0
 			;;
+        --highlight-style)
+            COMPREPLY=( $( compgen -W "$highlight_styles" -- ${cur} ) )
+            return 0
+            ;;
 		--data-dir)
 			COMPREPLY=( $( compgen -d -- ${cur} ) )
 			return 0
@@ -129,7 +141,7 @@ function _completer()
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
 			return 0
 			;;
-		--csl)
+		--csl|--citation-abbreviations)
 			COMPREPLY=( $( ls $HOME/.csl/ 2> /dev/null | egrep "^${cur}.*\.csl$" ) )
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | grep ".csl$" ) ) 
 			return 0
