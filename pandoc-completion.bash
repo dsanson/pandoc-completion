@@ -147,7 +147,7 @@ function _completer()
 			return 0
 			;;
 		--citation-abbreviations)
-			COMPREPLY=( $( ls $HOME/.csl/ 2> /dev/null | egrep "^${cur}.*\.json$" ) )
+			COMPREPLY=( $( ls $HOME/.csl/ 2> /dev/null | egrep "^${cur}.*\.json$" | sed "s#^#$HOME/.csl/#" ) )
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | grep ".json$" ) )
 			return 0
 			;;
