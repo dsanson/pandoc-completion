@@ -38,7 +38,6 @@ function _completer()
 				--normalize \
 				--reference-links \
 				-S --smart \
-                --old-dashes \
 				-5 --html5 \
 				-m --latexmathml \
 				--mathml \
@@ -80,6 +79,7 @@ function _completer()
 				--tab-stop \
 			    --strict \
 				-R --parse-raw \
+                --old-dashes \
                 --no-highlight \
                 --highlight-style \
 				-N --number-sections \
@@ -141,12 +141,17 @@ function _completer()
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
 			return 0
 			;;
-		--csl|--citation-abbreviations)
+		--csl)
 			COMPREPLY=( $( ls $HOME/.csl/ 2> /dev/null | egrep "^${cur}.*\.csl$" ) )
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | grep ".csl$" ) ) 
 			return 0
 			;;
-		--reference-odt)
+		--citation-abbreviations)
+			COMPREPLY=( $( ls $HOME/.csl/ 2> /dev/null | egrep "^${cur}.*\.json$" ) )
+			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | grep ".json$" ) )
+			return 0
+			;;
+	--reference-odt)
 			COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.odt$" | sed s#^#$HOME/.pandoc/# ) )
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
 			return 0
