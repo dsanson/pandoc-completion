@@ -1,28 +1,18 @@
-This repository contains two files, either of which can be used to
-provide bash command-line completion for pandoc. For now, I recommend
-using `pandoc-completion.bash`. Ultimately, I'd like to replace
-`pandoc-completion.bash` with `pandoc.usage`, but there are bugs that
-need to ironed out before it can be recommended.
-
 ## installation
 
-If you want the development versions of both files,
+First get pandoc-completion.bash,
 
     git clone git@github.com:dsanson/pandoc-completion.git
 
-If just you want a reasonably stable version of `pandoc-completion.bash`,
+or (if you don't want to be bothered with git)
 
-    cd /path/you/want/to/put/the/script
-	curl -O https://raw.github.com/dsanson/pandoc-completion/1.1/pandoc-completion.bash
+    curl -O https://raw.github.com/dsanson/pandoc-completion/master/pandoc-completion.bash
 
-To use `pandoc-completion.bash`, you will then need to put something like
+Then put something like
 
     [[ -s "/path/to/pandoc-completions.bash" ]] && source "/path/to/pandoc-completions.bash"
 
 into your `.bashrc`.
-
-To use `pandoc.usage`, install [Compleat][], and put `pandoc.usage` in
-`~/.compleat`.
 
 ## pandoc-completion.bash
 
@@ -65,30 +55,18 @@ as well as in `~/.pandoc`. And
 
 will do the same, for files ending in `.odt`.
 
-Note that this script is messy. I don't know a lot about writing bash
-completion scripts, and I find that the documentation of the options
-governing `complete` and `compgen` is rather thin. But it works well
-enough to be useful for me.
+Pandoc 1.9 introduced support for a `--citation-abbreviations` option, specifying a JSON file containing a list of abbreviations to be applied when generating bibliographies (e.g., abbreviations of Journal titles). For the moment, the script will complete filenames ending in `.json` in either ~/.csl or the current directory. This may change once I get a better sense of how these lists are used. 
 
-## pandoc.usage
+## pandoc.usage is no more
 
-`pandoc.usage` is a usage file for use with [Compleat][], a haskell
+`pandoc.usage` was a usage file for use with [Compleat][], a haskell
 program that generates bash and zsh completions based upon an abstract
-specification of a command's command line option. This is ultimately a
-more elegant solution and easier to maintain, but
+specification of a command's command line option. I hoped it would ultimately provide a more elegant solution and be easier to maintain, but
 
-1.  I can't get it to provide completions for full paths to files not in
-    the current path, so at the moment it will not look for bibliography
-    files and reference.odt files in pandoc's data folder. (But it does
-    support completions of templates in `~/.pandoc/templates` and csl
-    files in `~/.csl`, since pandoc knows to search in these paths.)
-2.  For some reason, it is not restricting completions when appropriate,
-    so that
+1.  I couldn't get it to provide completions for full paths to files not in
+    the current path;
+2.  I couldn't get it to respect appropriate restrictions on completions.
 
-<!-- -->
-
-    pandoc --template <tab>
-
-completes both appropriate filenames *and* pandoc command-line options.
+So I removed pandoc.usage from the repo. The most recent version can be found [here](https://github.com/dsanson/pandoc-completion/commit/72eab2016eafa4957b1cfac07989d4f8ab208e4e).
 
   [Compleat]: https://github.com/mbrubeck/compleat
