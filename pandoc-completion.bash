@@ -151,7 +151,7 @@ function _completer()
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | grep ".json$" ) )
 			return 0
 			;;
-	--reference-odt)
+	    --reference-odt)
 			COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.odt$" | sed s#^#$HOME/.pandoc/# ) )
 			COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
 			return 0
