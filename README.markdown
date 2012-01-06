@@ -53,7 +53,8 @@ smart about where it looks for possible filename completions:
 -   `--template`: the current directory or `~/.pandoc/templates`,
     -   `markdown2pdf`: *completions are restricted to filenames that
         contain 'latex'*. This should cover both the current standard
-        naming scheme (`name.format`) and the old `format.name` scheme.
+        `name.format` scheme (e.g., `handout.latex`) and the old
+        standard `format.name` scheme (e.g., `latex.handout`).
     -   `pandoc`: completions are not restricted by output format.
 
 -   `--csl`: filenames ending in `.csl`, in the current directory or
