@@ -10,11 +10,11 @@ or (if you don't want to be bothered with git)
 
 Then put something like
 
-    [[ -s "/path/to/pandoc-completions.bash" ]] && source "/path/to/pandoc-completions.bash"
+    [[ -s "/path/to/pandoc-completion.bash" ]] && source "/path/to/pandoc-completion.bash"
 
 into your `.bashrc`.
 
-## pandoc-completion.bash
+## what it does 
 
 `pandoc-completion.bash` is a bash completion script for pandoc. It
 supports completion of pandoc's command-line options, as well as
@@ -57,7 +57,7 @@ will do the same, for files ending in `.odt`.
 
 Pandoc 1.9 introduced support for a `--citation-abbreviations` option, specifying a JSON file containing a list of abbreviations to be applied when generating bibliographies (e.g., abbreviations of Journal titles). For the moment, the script will complete filenames ending in `.json` in either ~/.csl or the current directory. This may change once I get a better sense of how these lists are used. 
 
-## pandoc.usage is no more
+## pandoc.usage has been discontinued
 
 `pandoc.usage` was a usage file for use with [Compleat][], a haskell
 program that generates bash and zsh completions based upon an abstract
