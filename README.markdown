@@ -1,6 +1,21 @@
-## installation
+pandoc-completion.bash
+----------------------
 
-First get pandoc-completion.bash,
+`pandoc-completion.bash` is a [bash completion script][] for [pandoc][].
+It supports completion of `pandoc`'s command-line options, as well as
+completion of filenames in the pandoc data directory, `~/.pandoc`, and
+the csl styles directory, `~/.csl`, where appropriate. It provides the
+same completions, where appropriate, for `markdown2pdf`.
+
+`pandoc` is, in the words of its developer, John MacFarlane, a "swiss
+army knife" for markup conversion. But when you use it with
+`pandoc-completion.bash`, I think you'll find it feels a bit more like a
+switchblade.
+
+installation
+------------
+
+First get `pandoc-completion.bash`,
 
     git clone git@github.com:dsanson/pandoc-completion.git
 
@@ -12,61 +27,64 @@ Then put something like
 
     [[ -s "/path/to/pandoc-completion.bash" ]] && source "/path/to/pandoc-completion.bash"
 
-into your `.bashrc`.
+in your `.bashrc`.
 
-## what it does 
+some further details about the implementation
+---------------------------------------------
 
-`pandoc-completion.bash` is a bash completion script for pandoc. It
-supports completion of pandoc's command-line options, as well as
-completion of file paths in the pandoc data directory and $HOME/.csl,
-where appropriate. It provides the same completions, where appropriate,
-for markdown2pdf.
+The script completes long options that take arguments as
 
-Note that the script completes long options that take arguments as
-`--opt arg` rather than `--opt=arg` (although the documentation doesn't
-don't make this clear, pandoc supports both styles). But if you happen
-to type something like
+    --opt arg
+
+rather than
+
+    --opt=arg
+
+(although the documentation doesn't don't make this clear, `pandoc`
+supports both styles). But if you happen to type something like
 
     pandoc --opt=<tab>
 
 it should still work as expected.
 
-So, for example,
+Some options take filenames as arguments, and the script tries to be
+smart about where it looks for possible filename completions:
 
-    pandoc --template syllab<tab>
+-   `--template`: the current directory or `~/.pandoc/templates`,
+    -   `markdown2pdf`: *completions are restricted to filenames that
+        contain 'latex'*. This should cover both the current standard
+        naming scheme (`name.format`) and the old `format.name` scheme.
+    -   `pandoc`: completions are not restricted by output format.
 
-will complete filenames starting with `syllab` in the current directory
-as well as in `~/.pandoc/templates`. (Note that the completion script
-does not attempt to restrict the completion to templates that match your
-output format---that is up to you.) Similarly,
+-   `--csl`: filenames ending in `.csl`, in the current directory or
+    `~/.csl`.
+-   `--citation-abbreviations`: filenames ending in `.json`, in the
+    current directory or `~/.csl`.
+-   `--biliography`: filenames ending in supported bibliography
+    extensions (`.bib`, `.mods`, etc.), in the current directory or in
+    `~/.pandoc`.
+-   `--reference-odt`: filenames ending in `.odt` in the current
+    directory or `~/.pandoc`.
 
-    pandoc --csl chic<tab>
+pandoc.usage
+------------
 
-will complete filenames starting with `chic` and ending with `.csl` in
-the current directory as well as in `~/.csl`. And
+This repository used to include both `pandoc-completion.bash` and
+`pandoc.usage`. `pandoc.usage` was a usage file for use with
+[Compleat][], a haskell program that generates bash and zsh completions
+based upon an abstract specification of a command's command line option.
+I hoped it would ultimately provide a more elegant solution and be
+easier to maintain, but
 
-    markdown2pdf --bibliography potat<tab>
+1.  I couldn't get it to provide completions for full paths to files not
+    in the current path;
+2.  I couldn't get it to respect appropriate restrictions on
+    completions.
 
-will complete filenames starting with `potat` with supported
-bibliography extensions (`.bib`, `.mods`, etc.) in the current directory
-as well as in `~/.pandoc`. And
+So I removed `pandoc.usage` from the repo. If you are looking for it,
+the most recent version can be found [here][].
 
-    pandoc --reference-odt 
-
-will do the same, for files ending in `.odt`.
-
-Pandoc 1.9 introduced support for a `--citation-abbreviations` option, specifying a JSON file containing a list of abbreviations to be applied when generating bibliographies (e.g., abbreviations of Journal titles). For the moment, the script will complete filenames ending in `.json` in either ~/.csl or the current directory. This may change once I get a better sense of how these lists are used. 
-
-## pandoc.usage has been discontinued
-
-`pandoc.usage` was a usage file for use with [Compleat][], a haskell
-program that generates bash and zsh completions based upon an abstract
-specification of a command's command line option. I hoped it would ultimately provide a more elegant solution and be easier to maintain, but
-
-1.  I couldn't get it to provide completions for full paths to files not in
-    the current path;
-2.  I couldn't get it to respect appropriate restrictions on completions.
-
-So I removed pandoc.usage from the repo. The most recent version can be found [here](https://github.com/dsanson/pandoc-completion/commit/72eab2016eafa4957b1cfac07989d4f8ab208e4e).
-
+  [bash completion script]: http://www.hypexr.org/bash_tutorial.php#completion
+  [pandoc]: http://johnmacfarlane.net/pandoc/
   [Compleat]: https://github.com/mbrubeck/compleat
+  [here]: https://github.com/dsanson/pandoc-completion/commit/72eab2016eafa4957b1cfac07989d4f8ab208e4e
