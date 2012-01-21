@@ -27,7 +27,7 @@ function _completer()
         dzslides docbook \
 		opendocument latex latex+lhs beamer context texinfo man \ 
 	    markdown markdown+lhs plain rst rst+lhs mediawiki \ 
-		textile rtf org asciidoc odt epub"
+		textile rtf org asciidoc odt docx epub"
 
 	bibs="(bib)|(mods)|(ris)|(bbx)|(enl)|(xml)|(wos)|(copac)|(json)|(medline)"
 
