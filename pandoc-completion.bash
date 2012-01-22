@@ -50,7 +50,7 @@ function _completer()
                  -5 --html5 \
                  --no-highlight \
                  --highlight-style \
-                 -m --latexmathml \
+                 -m --latexmathml --asciimathml \
                  --mathml \
                  --mimetex \
                  --webtex \
@@ -185,7 +185,11 @@ function _completer()
             COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
             return 0
             ;;
-
+        --reference-docx)
+            COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.docx$" | sed s#^#$HOME/.pandoc/# ) )
+            COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
+            return 0
+            ;;
         -o|--output)
             COMPREPLY=( $( compgen -f -- ${cur} ) )
             return 0
