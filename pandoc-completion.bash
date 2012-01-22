@@ -182,12 +182,12 @@ function _completer()
             ;;
         --reference-odt)
             COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.odt$" | sed s#^#$HOME/.pandoc/# ) )
-            COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
+            COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | egrep "*.odt" ) )
             return 0
             ;;
         --reference-docx)
             COMPREPLY=( $( ls $HOME/.pandoc/ 2> /dev/null | egrep "^${cur}.*\.docx$" | sed s#^#$HOME/.pandoc/# ) )
-            COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
+            COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} | egrep "*.docx" ) )
             return 0
             ;;
         -o|--output)
