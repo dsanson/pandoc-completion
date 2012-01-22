@@ -191,7 +191,7 @@ function _completer()
             return 0
             ;;
         -o|--output)
-            COMPREPLY=( $( compgen -f -- ${cur} ) )
+            COMPREPLY=( $( compgen -f -- ${cur} | sed "s/\(.*\)\..*/\1/" | grep "${cur}"; compgen -f -- ${cur} ) )
             return 0
             ;;
     esac
