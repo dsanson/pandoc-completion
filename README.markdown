@@ -29,6 +29,13 @@ Then put something like
 
 in your `.bashrc`.
 
+which version of pandoc?
+------------------------
+
+I have not been as careful about this as I might have been. Ideally, there would be separate versions of pandoc-completion.bash for each release of pandoc. As a matter of fact, the current version is tracking the development version of pandoc fairly closely, as we make our way toward the release of pandoc 1.9. When I get around to it, I'll try to tag past commits with version numbers, so this will be easier to keep track of.
+
+A good quick way to check your version of pandoc against pandoc-completion.bash is to run `pandoc --help`, and compare the output against the completion script, looking to see if the input and output formats match, and if the options match.
+
 some further details about the implementation
 ---------------------------------------------
 
@@ -64,8 +71,9 @@ smart about where it looks for possible filename completions:
 -   `--biliography`: filenames ending in supported bibliography
     extensions (`.bib`, `.mods`, etc.), in the current directory or in
     `~/.pandoc`.
--   `--reference-odt`: filenames ending in `.odt` in the current
-    directory or `~/.pandoc`.
+-   `--reference-odt` and `--reference-docx`: filenames ending in `.odt`
+    or `.docx` in the current directory or `~/.pandoc`.
+
 
 pandoc.usage
 ------------
