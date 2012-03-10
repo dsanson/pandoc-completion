@@ -1,6 +1,6 @@
 # pandoc completion 
 # 
-# (c) 2011 David Sanson
+# (c) 2012 David Sanson
 # 
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
@@ -24,10 +24,10 @@ function _completer()
         html latex latex+lhs"
 
     output="native json html html5 html+lhs html5+lhs s5 slidy \
-        dzslides docbook \
-        opendocument latex latex+lhs context texinfo man \ 
-        markdown markdown+lhs plain rst rst+lhs mediawiki \ 
-        textile rtf org asciidoc odt docx epub"
+        dzslides docbook opendocument latex latex+lhs beamer \
+        beamer+lhs context texinfo man markdown markdown+lhs \
+        plain rst rst+lhs mediawiki textile rtf org asciidoc \
+        odt docx epub"
 
     bibs="(bib)|(mods)|(ris)|(bbx)|(enl)|(xml)|(wos)|(copac)|(json)|(medline)"
 
@@ -35,72 +35,76 @@ function _completer()
 
     latex_engines="pdflatex lualatex xelatex"
 
-    pandoc_opts="-f -r --from --read \
-                 -t -w --to --write \
-                 -s --standalone \
-                 -o --output \
-                 -p --preserve-tabs \
-                 --tab-stop \
-                 --strict \
-                 --normalize \
-                 --reference-links \
-                 -R --parse-raw \
-                 -S --smart \
-                 --old-dashes \
-                 -5 --html5 \
-                 --no-highlight \
-                 --highlight-style \
-                 -m --latexmathml --asciimathml \
-                 --mathml \
-                 --mimetex \
-                 --webtex \
-                 --jsmath \}
-                 --mathjax \
-                 --gladtex \
-                 -i --incremental \
-                 --offline \
-                 --self-contained \
-                 --chapters \
-                 -N --number-sections \
-                 --listings \
-                 --beamer \
-                 --section-divs \
-                 --no-wrap \
-                 --columns \
-                 --email-obfuscation \
-                 --id-prefix \
-                 --indented-code-classes \
-                 --toc --table-of-contents \
-                 --base-header-level \
-                 --template \
-                 -V --variable \
-                 -c --css \
-                 -H --include-in-header \
-                 -B --include-before-body \
-                 -A --include-after-body \
-                 -T --title-prefix \
-                 --reference-odt \
-                 --reference-docx \
-                 --epub-stylesheet \
-                 --epub-cover-image \
-                 --epub-metadata \
-                 --latex-engine \
-                 -D --print-default-template \
-                 --bibliography \
-                 --csl \
-                 --citation-abbreviations \
-                 --natbib \
-                 --biblatex \
-                 --data-dir \
-                 --dump-args \
-                 --ignore-args \
-                 -v --version \
-                 -h --help \
-                 --atx-headers \
-                 --slide-level"
-                 
+    pandoc_opts="-f -r --from --read\
+                -t -w --to --write \
+                -o --output \
+                --data-dir \
+                --strict \
+                -R --parse-raw \
+                -S --smart \
+                --old-dashes \
+                --base-header-level \
+                --indented-code-classes \
+                --normalize \
+                -p --preserve-tabs \
+                --tab-stop \
+                -s --standalone \
+                --template \
+                -V --variable \
+                -D --print-default-template \
+                --no-wrap \
+                --columns \
+                --toc --table-of-contents \
+                --no-highlight \
+                --highlight-style \
+                -H --include-in-header \
+                -B --include-before-body \
+                -A --include-after-body \
+                --self-contained \
+                --offline \
+                -5 --html5 \
+                --ascii \
+                --reference-links \
+                --atx-headers \
+                --chapters \
+                -N --number-sections \
+                --listings \
+                -i --incremental \
+                --slide-level \
+                --section-divs \
+                --email-obfuscation \
+                --id-prefix \
+                -T --title-prefix \
+                -c --css \
+                --reference-odt \
+                --reference-docx \
+                --epub-stylesheet \
+                --epub-cover-image \
+                --epub-metadata \
+                --epub-embed-font \
+                --latex-engine \
+                --bibliography \
+                --csl \
+                --citation-abbreviations \
+                --natbib \
+                --biblatex \
+                -m --latexmathml --asciimathml \
+                --mathml \
+                --mimetex \
+                --webtex \
+                --jsmath \
+                --mathjax \
+                --gladtex \
+                --dump-args \
+                --ignore-args \
+                -v --version \
+                -h --help"
 
-    markdown2pdf_opts="--xetex --luatex --beamer \
+# As of pandoc 1.9, markdown2pdf is no longer distributed with
+# pandoc. For now, I've left this here for those using older
+# versions of pandoc.
+
+    markdown2pdf_opts="--xetex --luatex \
                 -f -r --from --read \
                 -o --output \
                 -p --preserve-tabs \
