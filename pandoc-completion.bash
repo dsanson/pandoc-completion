@@ -24,7 +24,7 @@ function _completer()
         html latex latex+lhs"
 
     output="native json html html5 html+lhs html5+lhs s5 slidy \
-        dzslides docbook opendocument latex latex+lhs beamer \
+        slideous dzslides docbook opendocument latex latex+lhs beamer \
         beamer+lhs context texinfo man markdown markdown+lhs \
         plain rst rst+lhs mediawiki textile rtf org asciidoc \
         odt docx epub"
@@ -68,6 +68,7 @@ function _completer()
                 --atx-headers \
                 --chapters \
                 -N --number-sections \
+                --no-tex-ligatures
                 --listings \
                 -i --incremental \
                 --slide-level \
