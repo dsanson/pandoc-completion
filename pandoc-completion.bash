@@ -101,40 +101,9 @@ function _completer()
                 -v --version \
                 -h --help"
 
-# As of pandoc 1.9, markdown2pdf is no longer distributed with
-# pandoc. For now, I've left this here for those using older
-# versions of pandoc.
-
-    markdown2pdf_opts="--xetex --luatex \
-                -f -r --from --read \
-                -o --output \
-                -p --preserve-tabs \
-                --tab-stop \
-                --strict \
-                -R --parse-raw \
-                --old-dashes \
-                --no-highlight \
-                --highlight-style \
-                -N --number-sections \
-                --listings \
-                --toc --table-of-contents \
-                --template \
-                -V --variable \
-                -H --include-in-header \
-                -B --include-before-body \
-                -A --include-after-body \
-                --bibliography \
-                --csl \
-                --citation-abbreviations \
-                --data-dir \
-                -h --help"
-
     if [ "$command" == "pandoc" ]
     then
         opts="$pandoc_opts"
-    elif [ "$command" == "markdown2pdf" ]
-    then
-        opts="$markdown2pdf_opts"
     else
         return 0
     fi
@@ -220,10 +189,5 @@ function _pandoc_completer() {
     return 0
 }
 
-function _markdown2pdf_completer() {
-    _completer markdown2pdf
-}
-
 complete -F _pandoc_completer -o nospace pandoc
 
-complete -F _markdown2pdf_completer -o nospace markdown2pdf
