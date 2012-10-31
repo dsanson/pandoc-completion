@@ -7,6 +7,8 @@
 # notice and this notice are preserved.  This file is offered as-is,
 # without any warranty.
 #
+# Pandoc Version: 1.9.4.5
+# 
 
 function _completer() 
 {
