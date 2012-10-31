@@ -20,8 +20,8 @@ function _completer()
        prev="${COMP_WORDS[COMP_CWORD-2]}"
     fi
     
-    input="native json markdown markdown+lhs rst rst+lhs textile \
-        html latex latex+lhs"
+    input="native json markdown markdown+lhs rst rst+lhs docbook \
+        textile html latex latex+lhs"
 
     output="native json html html5 html+lhs html5+lhs s5 slidy \
         slideous dzslides docbook opendocument latex latex+lhs beamer \
