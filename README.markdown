@@ -4,13 +4,7 @@ pandoc-completion.bash
 `pandoc-completion.bash` is a [bash completion script][] for [pandoc][].
 It supports completion of `pandoc`'s command-line options, as well as
 completion of filenames in the pandoc data directory, `~/.pandoc`, and
-the csl styles directory, `~/.csl`, where appropriate. It provides the
-same completions, where appropriate, for `markdown2pdf`.
-
-`pandoc` is, in the words of its developer, John MacFarlane, a "swiss
-army knife" for markup conversion. But when you use it with
-`pandoc-completion.bash`, I think you'll find it feels a bit more like a
-switchblade.
+the csl styles directory, `~/.csl`, where appropriate.
 
 installation
 ------------
@@ -29,12 +23,32 @@ Then put something like
 
 in your `.bashrc`.
 
+To use bash completion scripts with [zsh][], you need to load `bashcompinit` first, so put something like
+
+```bash
+
+autoload bashcompinit
+bashcompinit
+source "/path/to/pandoc-completion.bash"
+
+```
+
+in your `.zshrc`.
+
 which version of pandoc?
 ------------------------
 
-I have not been as careful about this as I might have been. Ideally, there would be separate versions of pandoc-completion.bash for each release of pandoc. As a matter of fact, the current version is tracking the development version of pandoc fairly closely, as we make our way toward the release of pandoc 1.9. When I get around to it, I'll try to tag past commits with version numbers, so this will be easier to keep track of.
+New versions of pandoc sometimes bring new command-line options and sometimes remove old command-line options. I have not been as careful about keeping track of this as I might have been: I usually use the development version of pandoc, updating every couple of weeks. And I try to keep this script in sync with what I am using.
 
-A good quick way to check your version of pandoc against pandoc-completion.bash is to run `pandoc --help`, and compare the output against the completion script, looking to see if the input and output formats match, and if the options match.
+In recent commits, you will find a line like this
+
+```bash
+# Pandoc Version: 1.9.4.5
+```
+
+at the beginning of the script. The script should exactly match the options available in that version of pandoc. Since the command-line options are fairly stable, you probably don't need to worry about this.
+
+A good quick way to check your version of pandoc against your version of pandoc-completion.bash is to run `pandoc --help`, and compare the output against the completion script, looking to see if the input and output formats match and if the options match.
 
 some further details about the implementation
 ---------------------------------------------
@@ -48,7 +62,7 @@ rather than
     --opt=arg
 
 (although the documentation doesn't don't make this clear, `pandoc`
-supports both styles). But if you happen to type something like
+supports both styles). But if you type something like
 
     pandoc --opt=<tab>
 
@@ -74,26 +88,51 @@ smart about where it looks for possible filename completions:
 -   `--reference-odt` and `--reference-docx`: filenames ending in `.odt`
     or `.docx` in the current directory or `~/.pandoc`.
 
+adding your own completion shortcuts
+------------------------------------
+
+If there is an option that you use regularly, you might want to create a completion shortcut for it. For example, in my personal copy of `pandoc-completions.bash`, I have added two instances to the case-loop that occurs near the end of the script, so that `-x` expands to `--latex-engine xelatex` and `-b` expands to `--bibliography $HOME/.pandoc/default.bib`: 
+
+```bash
+case "$cur" in
+    -x)
+      COMPREPLY=( "--latex-engine xelatex" )
+      return 0
+      ;;
+    -b)
+      COMPREPLY=( "--bibliography $HOME/.pandoc/default.bib")
+      return 0
+      ;;
+    -*)
+      COMPREPLY=( $(compgen -W "$opts" -- ${cur}) )
+      return 0
+      ;;
+    *)
+      COMPREPLY=( $(compgen -f -- ${cur}) )
+      ;;
+esac
+```
 
 pandoc.usage
 ------------
 
 This repository used to include both `pandoc-completion.bash` and
-`pandoc.usage`. `pandoc.usage` was a usage file for use with
+`pandoc.usage`. The latter was a usage file for use with
 [Compleat][], a haskell program that generates bash and zsh completions
-based upon an abstract specification of a command's command line option.
+based upon an abstract specification of a command's command line options.
 I hoped it would ultimately provide a more elegant solution and be
 easier to maintain, but
 
 1.  I couldn't get it to provide completions for full paths to files not
-    in the current path;
+    in the current directory;
 2.  I couldn't get it to respect appropriate restrictions on
     completions.
 
 So I removed `pandoc.usage` from the repo. If you are looking for it,
-the most recent version can be found [here][].
+the most recent version can be found [here][]. If you can get it to work, let me know!
 
   [bash completion script]: http://www.hypexr.org/bash_tutorial.php#completion
   [pandoc]: http://johnmacfarlane.net/pandoc/
+  [zsh]: http://zsh.sourceforge.net/
   [Compleat]: https://github.com/mbrubeck/compleat
   [here]: https://github.com/dsanson/pandoc-completion/commit/72eab2016eafa4957b1cfac07989d4f8ab208e4e
