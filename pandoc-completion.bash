@@ -33,7 +33,7 @@ function _completer()
 
     bibs="(bib)|(mods)|(ris)|(bbx)|(enl)|(xml)|(wos)|(copac)|(json)|(medline)"
 
-    highlight_styles="pygments kate monochrome espresso haddock tango"
+    highlight_styles="pygments kate monochrome espresso zenburn haddock tango"
 
     latex_engines="pdflatex lualatex xelatex"
 
