@@ -71,20 +71,14 @@ it should still work as expected.
 Some options take filenames as arguments, and the script tries to be
 smart about where it looks for possible filename completions:
 
--   `--template`: the current directory or `~/.pandoc/templates`,
-    -   `markdown2pdf`: *completions are restricted to filenames that
-        contain 'latex'*. This should cover both the current standard
-        `name.format` scheme (e.g., `handout.latex`) and the old
-        standard `format.name` scheme (e.g., `latex.handout`).
-    -   `pandoc`: completions are not restricted by output format.
-
+-   `--template`: the current directory or `~/.pandoc/templates`;
 -   `--csl`: filenames ending in `.csl`, in the current directory or
-    `~/.csl`.
+    `~/.csl`;
 -   `--citation-abbreviations`: filenames ending in `.json`, in the
-    current directory or `~/.csl`.
+    current directory or `~/.csl`;
 -   `--biliography`: filenames ending in supported bibliography
     extensions (`.bib`, `.mods`, etc.), in the current directory or in
-    `~/.pandoc`.
+    `~/.pandoc`;
 -   `--reference-odt` and `--reference-docx`: filenames ending in `.odt`
     or `.docx` in the current directory or `~/.pandoc`.
 
