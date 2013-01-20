@@ -7,7 +7,7 @@
 # notice and this notice are preserved.  This file is offered as-is,
 # without any warranty.
 #
-# Pandoc Version: 1.9.4.5
+# Pandoc Version: 1.10.0.3
 # 
 
 function _completer() 
@@ -22,14 +22,42 @@ function _completer()
        prev="${COMP_WORDS[COMP_CWORD-2]}"
     fi
     
-    input="native json markdown markdown+lhs rst rst+lhs docbook \
-        textile html latex latex+lhs"
+    extensible="markdown markdown_strict markdown_phpextra  \
+        markdown_github markdown_mmd"
 
-    output="native json html html5 html+lhs html5+lhs s5 slidy \
-        slideous dzslides docbook opendocument latex latex+lhs beamer \
-        beamer+lhs context texinfo man markdown markdown+lhs \
-        plain rst rst+lhs mediawiki textile rtf org asciidoc \
-        odt docx epub"
+    input="native json rst mediawiki docbook \
+        textile html latex latex"
+
+    input="$input $extensible"
+
+    output="native json docx odt epub epub3 fb2 html html5 \
+        s5 slidy slideous dzslides docbook opendocument \
+        latex beamer context texinfo man plain \
+        rst mediawiki textile rtf org asciidoc"
+
+    output="$output $extensible"
+
+    extensions="escaped_line_breaks blank_before_header header_attributes \
+        auto_identifiers implicit_header_references \
+        blank_line_before_blockquote fenced_code_blocks line_blocks \
+        fancy_lists startnum definition_lists example_lists simple_tables \
+        multiline_tables grid_tables pandoc_title_block \
+        all_symbols_escapable intraword_underscores strikeout superscript \
+        subscript inline_code_attributes tex_math_dollars raw_html \
+        markdown_in_html_blocks raw_tex latex_macros implicit_figures \
+        footnotes inline_notes citations hard_line_breaks \
+        tex_math_single_backslash tex_math_double_backslash markdown_attribute \
+        mmd_title_block abbrevations autolink_bare_uris link_attributes \
+        mmd_header_identifiers"
+
+    for i in $extensible
+    do
+        for e in $extensions
+        do
+            input="$input $i+$e $i-$e"
+            output="$output $i+$e $i-$e"
+        done
+    done
 
     bibs="(bib)|(mods)|(ris)|(bbx)|(enl)|(xml)|(wos)|(copac)|(json)|(medline)"
 
@@ -41,7 +69,6 @@ function _completer()
                 -t -w --to --write \
                 -o --output \
                 --data-dir \
-                --strict \
                 -R --parse-raw \
                 -S --smart \
                 --old-dashes \
@@ -57,6 +84,7 @@ function _completer()
                 --no-wrap \
                 --columns \
                 --toc --table-of-contents \
+                --toc-depth \
                 --no-highlight \
                 --highlight-style \
                 -H --include-in-header \
@@ -65,6 +93,7 @@ function _completer()
                 --self-contained \
                 --offline \
                 -5 --html5 \
+                --html-q-tags \
                 --ascii \
                 --reference-links \
                 --atx-headers \
@@ -85,6 +114,7 @@ function _completer()
                 --epub-cover-image \
                 --epub-metadata \
                 --epub-embed-font \
+                --epub-chapter-level \
                 --latex-engine \
                 --bibliography \
                 --csl \

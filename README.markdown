@@ -43,10 +43,10 @@ New versions of pandoc sometimes bring new command-line options and sometimes re
 In recent commits, you will find a line like this
 
 ```bash
-# Pandoc Version: 1.9.4.5
+# Pandoc Version: 1.10.0.3
 ```
 
-at the beginning of the script. The script should exactly match the options available in that version of pandoc. Since the command-line options are fairly stable, you probably don't need to worry about this.
+at the beginning of the script. The script should exactly match the options available in that version of pandoc. Since the command-line options are fairly stable, you probably don't need to worry about this too much.
 
 A good quick way to check your version of pandoc against your version of pandoc-completion.bash is to run `pandoc --help`, and compare the output against the completion script, looking to see if the input and output formats match and if the options match.
 
