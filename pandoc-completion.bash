@@ -206,11 +206,7 @@ function _completer()
             return 0
             ;;
         --template)
-            if [ ${command} == 'pandoc' ]; then
-                COMPREPLY=( $( ls $HOME/.pandoc/templates/ 2> /dev/null | grep "^${cur}" ) )
-            elif [ ${command} == 'markdown2pdf' ]; then
-                COMPREPLY=( $( ls $HOME/.pandoc/templates/ 2> /dev/null | grep "latex" | grep "^${cur}" ) )
-            fi
+            COMPREPLY=( $( ls $HOME/.pandoc/templates/ 2> /dev/null | grep "^${cur}" ) )
             COMPREPLY=( ${COMPREPLY[@]} $(compgen -f -- ${cur} ) )
             return 0
             ;;
