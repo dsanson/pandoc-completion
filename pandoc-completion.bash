@@ -50,16 +50,6 @@ function _completer()
         mmd_title_block abbrevations autolink_bare_uris link_attributes \
         mmd_header_identifiers"
 
-    # This won't work becuase I need to be able to add lots of these flags.
-    # for i in $extensible
-    # do
-    #     for e in $extensions
-    #     do
-    #         input="$input $i+$e $i-$e"
-    #         output="$output $i+$e $i-$e"
-    #     done
-    # done
-
     bibs="(bib)|(mods)|(ris)|(bbx)|(enl)|(xml)|(wos)|(copac)|(json)|(medline)"
 
     highlight_styles="pygments kate monochrome espresso zenburn haddock tango"
