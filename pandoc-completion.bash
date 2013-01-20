@@ -50,14 +50,15 @@ function _completer()
         mmd_title_block abbrevations autolink_bare_uris link_attributes \
         mmd_header_identifiers"
 
-    for i in $extensible
-    do
-        for e in $extensions
-        do
-            input="$input $i+$e $i-$e"
-            output="$output $i+$e $i-$e"
-        done
-    done
+    # This won't work becuase I need to be able to add lots of these flags.
+    # for i in $extensible
+    # do
+    #     for e in $extensions
+    #     do
+    #         input="$input $i+$e $i-$e"
+    #         output="$output $i+$e $i-$e"
+    #     done
+    # done
 
     bibs="(bib)|(mods)|(ris)|(bbx)|(enl)|(xml)|(wos)|(copac)|(json)|(medline)"
 
@@ -142,11 +143,55 @@ function _completer()
     
     case "$prev" in
         -f|-r|--from|--read)
-            COMPREPLY=( $( compgen -W "$input" -- ${cur} ) )
+            if [[ $cur == *[+-] ]]
+            then
+                suggestions=""
+                for e in $extensions
+                do
+                    suggestions="$cur$e $suggestions"
+                done
+                COMPREPLY=( $( compgen -W "$suggestions" -- ${cur} ) )
+            elif [[ $cur == *[+-]* ]]
+            then
+                suggestions=""
+                root=${cur%[+-]*}
+                suffix=${cur##*[+-]}
+                connective=${cur#$root}
+                connective=${connective:0:1}
+                for e in $extensions
+                do
+                    suggestions="$root$connective$e $suggestions"
+                done
+                COMPREPLY=( $( compgen -W "$suggestions" -- ${cur} ) )
+            else
+                COMPREPLY=( $( compgen -W "$input" -- ${cur} ) )
+            fi
             return 0
             ;;
         -t|-w|-D|--to|--write|--print-default-template)
-            COMPREPLY=( $( compgen -W "$output" -- ${cur} ) )
+            if [[ $cur == *[+-] ]]
+            then
+                suggestions=""
+                for e in $extensions
+                do
+                    suggestions="$cur$e $suggestions"
+                done
+                COMPREPLY=( $( compgen -W "$suggestions" -- ${cur} ) )
+            elif [[ $cur == *[+-]* ]]
+            then
+                suggestions=""
+                root=${cur%[+-]*}
+                suffix=${cur##*[+-]}
+                connective=${cur#$root}
+                connective=${connective:0:1}
+                for e in $extensions
+                do
+                    suggestions="$root$connective$e $suggestions"
+                done
+                COMPREPLY=( $( compgen -W "$suggestions" -- ${cur} ) )
+            else
+                COMPREPLY=( $( compgen -W "$output" -- ${cur} ) )
+            fi
             return 0
             ;;
         --highlight-style)
