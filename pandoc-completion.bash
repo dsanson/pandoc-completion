@@ -1,13 +1,13 @@
 # pandoc completion 
 # 
-# (c) 2012 David Sanson
+# (c) 2012, 2013 David Sanson
 # 
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
 # notice and this notice are preserved.  This file is offered as-is,
 # without any warranty.
 #
-# Pandoc Version: 1.10.0.3
+# Pandoc Version: 1.11
 # 
 
 function _completer() 
@@ -26,7 +26,7 @@ function _completer()
         markdown_github markdown_mmd"
 
     input="native json rst mediawiki docbook \
-        textile html latex latex"
+        textile html latex"
 
     input="$input $extensible"
 
@@ -90,11 +90,13 @@ function _completer()
                 --atx-headers \
                 --chapters \
                 -N --number-sections \
+                --number-offset \
                 --no-tex-ligatures
                 --listings \
                 -i --incremental \
                 --slide-level \
                 --section-divs \
+                --default-image-extension \
                 --email-obfuscation \
                 --id-prefix \
                 -T --title-prefix \
