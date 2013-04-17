@@ -22,110 +22,118 @@ function _completer()
        prev="${COMP_WORDS[COMP_CWORD-2]}"
     fi
     
-    extensible="markdown markdown_strict markdown_phpextra  \
-        markdown_github markdown_mmd"
+    extensible="markdown markdown_github markdown_mmd \
+        markdown_phpextra markdown_strict" 
 
-    input="native json rst mediawiki docbook \
-        textile html latex"
+    input="docbook haddock html json latex mediawiki \
+        native opml rst textile"
 
     input="$input $extensible"
 
-    output="native json docx odt epub epub3 fb2 html html5 \
-        s5 slidy slideous dzslides docbook opendocument \
-        latex beamer context texinfo man plain \
-        rst mediawiki textile rtf org asciidoc"
+    output="asciidoc beamer context docbook docx dzslides \
+        epub epub3 fb2 html html5 json latex man mediawiki \
+        native odt opendocument opml org plain revealjs \
+        rst rtf s5 slideous slidy texinfo textile"
 
     output="$output $extensible"
 
     extensions="escaped_line_breaks blank_before_header header_attributes \
         auto_identifiers implicit_header_references \
-        blank_line_before_blockquote fenced_code_blocks line_blocks \
-        fancy_lists startnum definition_lists example_lists simple_tables \
-        multiline_tables grid_tables pandoc_title_block \
-        all_symbols_escapable intraword_underscores strikeout superscript \
-        subscript inline_code_attributes tex_math_dollars raw_html \
-        markdown_in_html_blocks raw_tex latex_macros implicit_figures \
-        footnotes inline_notes citations hard_line_breaks \
-        tex_math_single_backslash tex_math_double_backslash markdown_attribute \
-        mmd_title_block abbrevations autolink_bare_uris link_attributes \
-        mmd_header_identifiers"
-
+        blank_before_blockquote fenced_code_blocks line_blocks \
+        fancy_lists startnum definition_lists example_lists \
+        simple_tables table_captions multiline_tables \
+        table_captions grid_tables table_captions pipe_tables \
+        table_captions pandoc_title_block all_symbols_escapable \
+        intraword_underscores strikeout superscript subscript \
+        inline_code_attributes tex_math_dollars raw_html \
+        markdown_in_html_blocks raw_tex latex_macros \
+        implicit_figures footnotes inline_notes citations \
+        hard_line_breaks tex_math_single_backslash \
+        tex_math_double_backslash markdown_attribute \
+        mmd_title_block abbreviations autolink_bare_uris \
+        link_attributes mmd_header_identifiers" 
+    
+    
     bibs="(bib)|(mods)|(ris)|(bbx)|(enl)|(xml)|(wos)|(copac)|(json)|(medline)"
 
     highlight_styles="pygments kate monochrome espresso zenburn haddock tango"
 
     latex_engines="pdflatex lualatex xelatex"
 
-    pandoc_opts="-f -r --from --read\
-                -t -w --to --write \
-                -o --output \
-                --data-dir \
-                -R --parse-raw \
-                -S --smart \
-                --old-dashes \
-                --base-header-level \
-                --indented-code-classes \
-                --normalize \
-                -p --preserve-tabs \
-                --tab-stop \
-                -s --standalone \
-                --template \
-                -V --variable \
-                -D --print-default-template \
-                --no-wrap \
-                --columns \
-                --toc --table-of-contents \
-                --toc-depth \
-                --no-highlight \
-                --highlight-style \
-                -H --include-in-header \
-                -B --include-before-body \
-                -A --include-after-body \
-                --self-contained \
-                --offline \
-                -5 --html5 \
-                --html-q-tags \
-                --ascii \
-                --reference-links \
-                --atx-headers \
-                --chapters \
-                -N --number-sections \
-                --number-offset \
-                --no-tex-ligatures
-                --listings \
-                -i --incremental \
-                --slide-level \
-                --section-divs \
-                --default-image-extension \
-                --email-obfuscation \
-                --id-prefix \
-                -T --title-prefix \
-                -c --css \
-                --reference-odt \
-                --reference-docx \
-                --epub-stylesheet \
-                --epub-cover-image \
-                --epub-metadata \
-                --epub-embed-font \
-                --epub-chapter-level \
-                --latex-engine \
-                --bibliography \
-                --csl \
-                --citation-abbreviations \
-                --natbib \
-                --biblatex \
-                -m --latexmathml --asciimathml \
-                --mathml \
-                --mimetex \
-                --webtex \
-                --jsmath \
-                --mathjax \
-                --gladtex \
-                --dump-args \
-                --ignore-args \
-                -v --version \
-                -h --help"
-
+    pandoc_opts=" \
+  -f   -r               --from  --read \
+  -t   -w               --to  --write \
+  -o                    --output \
+                        --data-dir \
+                        --strict \
+  -R                    --parse-raw \
+  -S                    --smart \
+                        --old-dashes \
+                        --base-header-level \
+                        --indented-code-classes \
+                        --normalize \
+  -p                    --preserve-tabs \
+                        --tab-stop \
+  -s                    --standalone \
+                        --template \
+  -V                    --variable \
+  -D                    --print-default-template \
+                        --print-sample-lua-writer \
+                        --no-wrap \
+                        --columns \
+                        --toc  --table-of-contents \
+                        --toc-depth \
+                        --no-highlight \
+                        --highlight-style \
+  -H                    --include-in-header \
+  -B                    --include-before-body \
+  -A                    --include-after-body \
+                        --self-contained \
+                        --offline \
+  -5                    --html5 \
+                        --html-q-tags \
+                        --ascii \
+                        --reference-links \
+                        --atx-headers \
+                        --chapters \
+  -N                    --number-sections \
+                        --number-offsetS \
+                        --no-tex-ligatures \
+                        --listings \
+  -i                    --incremental \
+                        --slide-level \
+                        --section-divs \
+                        --default-image-extension \
+                        --email-obfuscation \
+                        --id-prefix \
+  -T                    --title-prefix \
+  -c                    --css \
+                        --reference-odt \
+                        --reference-docx \
+                        --epub-stylesheet \
+                        --epub-cover-image \
+                        --epub-metadata \
+                        --epub-embed-font \
+                        --epub-chapter-level \
+                        --latex-engine \
+                        --bibliography \
+                        --csl \
+                        --citation-abbreviations \
+                        --natbib \
+                        --biblatex \
+  -m                    --latexmathml  --asciimathml \
+                        --mathml \
+                        --mimetex \
+                        --webtex \
+                        --jsmath \
+                        --mathjax \
+                        --gladtex \
+                        --dump-args \
+                        --ignore-args \
+  -v                    --version \
+  -h                    --help"
+        
+    
     if [ "$command" == "pandoc" ]
     then
         opts="$pandoc_opts"
