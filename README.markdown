@@ -1,3 +1,8 @@
+**No Longer In Development**
+
+As of 1.15.1.1, pandoc has [built-in support for bash completion](https://github.com/jgm/pandoc/commit/73824908aab1d910996cf4db7baf722aecc32d31), so you should use that instead.
+
+
 pandoc-completion.bash
 ----------------------
 
